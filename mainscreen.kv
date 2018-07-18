@@ -1,0 +1,683 @@
+#:kivy 1.8.0
+#:import datetime datetime
+#:include workitems.kv
+
+<ButtonLabel@Button+Label>
+    background_color: 0, 0, 0, 0
+    #size_hint_y: None
+    #height: 45
+    font_size: min(self.height, self.width) / 1.5
+    #text_size: self.size
+    valign: 'top'
+    halign: 'center'
+    #size: self.size
+
+<WorkitemCarouselDateLabel@Label>
+    background_color: 0, 0, 0, 0
+    #size_hint_y: None
+    #height: 25
+    font_size: min(self.height, self.width) / 3.0
+    #text_size: self.size
+    valign: 'top'
+    halign: 'center'
+    #size: self.size
+
+<ScaleLabel@Label>:
+	_scale: 1. if self.texture_size[0] < self.width else float(self.width) / self.texture_size[0]
+	canvas.before:
+		PushMatrix
+		Scale:
+			origin: self.center
+			x: self._scale or 1.
+			y: self._scale or 1.
+	canvas.after:
+		PopMatrix
+
+
+<MainScreen>:
+    id:MainScreen
+    update_timer:timer
+    #btn_start_workitem:btn_start_workitem
+    AnchorLayout:
+        pos: root.pos
+        size: root.size
+
+        canvas:
+            Color:
+                rgba: 232 / 255., 232 / 255., 232 / 255., 1
+            BorderImage:
+                pos: self.pos
+                size: self.size
+                source: 'atlas://textures/images/traco-atlas/round'
+
+        BoxLayout:
+            orientation: "vertical"
+
+            ActionBar:
+                pos_hint: {'top':1}
+                canvas:
+                    Color:
+                        rgba: (45 / 255., 117 / 255., 180 / 255., 1.0)
+                    BorderImage:
+                        pos: self.pos
+                        size: self.size
+                        source: 'atlas://textures/images/traco-atlas/round'
+                ActionView:
+                    use_separator: True
+                    ActionPrevious:
+                        title:('User Name')
+                        with_previous: False
+                        app_icon:'atlas://textures/images/traco-atlas/round'
+
+                    ActionOverflow:
+                    ActionButton:
+                        text:
+                            ('@ Office Since \n'
+                            '      [color=cbcbcb]10 : 23[/color]')
+                        markup: True
+
+                    ActionButton:
+                        Image:
+                            source: 'atlas://textures/images/traco-atlas/log_out'
+                            center: self.parent.center
+
+            BoxLayout:
+                orientation: "vertical"
+                padding: '10dp'
+                spacing: '10dp'
+                pos_hint: {'top':1}
+                Label:
+                    size_hint_y: None
+                    height: '18dp'
+                    markup: True
+                    text: u'[size=15sp][color=666666]Workitems[/color][/size]'
+                    font_size: '12sp'
+                    text_size: self.size
+                    valign: 'top'
+                    halign: 'right'
+                    #size: self.texture_size
+                    #font_size: min(self.height, self.width) / 2.5
+
+                Carousel:
+                    id: carousel
+                    loop:True
+
+                    BoxLayout:
+                        padding: '10dp'
+                        spacing: '10dp'
+                        #pos_hint: {'top':1}
+                        canvas:
+                            Color:
+                                rgb: (1, 1, 1)
+                            BorderImage:
+                                pos: self.pos
+                                size: self.size
+                                source: 'image/workitems.png'
+
+                        GridLayout:
+                            cols: 6
+                            rows: 3
+
+                            WorkitemCarouselDateLabel:
+                                text: '1'
+                            WorkitemCarouselDateLabel:
+                                text: '2'
+                            WorkitemCarouselDateLabel:
+                                text: '3'
+                            WorkitemCarouselDateLabel:
+                                text: '4'
+                            WorkitemCarouselDateLabel:
+                                text: '5'
+                            WorkitemCarouselDateLabel:
+                                text: '6'
+
+                            Image:
+                                source: 'atlas://textures/images/traco-atlas/workitems_line'
+                                center: self.parent.center
+
+                            Image:
+                                source: 'atlas://textures/images/traco-atlas/workitems_line'
+                                center: self.parent.center
+
+                            Image:
+                                source: 'atlas://textures/images/traco-atlas/workitems_line'
+                                center: self.parent.center
+
+                            Image:
+                                source: 'atlas://textures/images/traco-atlas/workitems_line'
+                                center: self.parent.center
+
+                            Image:
+                                source: 'atlas://textures/images/traco-atlas/workitems_line'
+                                center: self.parent.center
+
+                            Image:
+                                source: 'atlas://textures/images/traco-atlas/workitems_line'
+                                center: self.parent.center
+
+                            ButtonLabel:
+                                text: '1'
+                                on_press: MainScreen.open_workitems()
+                            ButtonLabel:
+                                text: '2'
+                                on_press: MainScreen.open_workitems()
+                            ButtonLabel:
+                                text: '3'
+                                on_press: MainScreen.open_workitems()
+                            ButtonLabel:
+                                text: '4'
+                                on_press: MainScreen.open_workitems()
+                            ButtonLabel:
+                                text: '5'
+                                on_press: MainScreen.open_workitems()
+                            ButtonLabel:
+                                text: '6'
+                                on_press: MainScreen.open_workitems()
+                    BoxLayout:
+                        padding: '10dp'
+                        spacing: '10dp'
+                        #pos_hint: {'top':1}
+                        canvas:
+                            Color:
+                                rgb: (1, 1, 1)
+                            BorderImage:
+                                pos: self.pos
+                                size: self.size
+                                source: 'image/workitems.png'
+                        GridLayout:
+                            cols: 6
+                            rows: 3
+                            WorkitemCarouselDateLabel:
+                                text: '7'
+                            WorkitemCarouselDateLabel:
+                                text: '8'
+                            WorkitemCarouselDateLabel:
+                                text: '9'
+                            WorkitemCarouselDateLabel:
+                                text: '10'
+                            WorkitemCarouselDateLabel:
+                                text: '11'
+                            WorkitemCarouselDateLabel:
+                                text: '12'
+                            Image:
+                                source: 'atlas://textures/images/traco-atlas/workitems_line'
+                                center: self.parent.center
+
+                            Image:
+                                source: 'atlas://textures/images/traco-atlas/workitems_line'
+                                center: self.parent.center
+
+                            Image:
+                                source: 'atlas://textures/images/traco-atlas/workitems_line'
+                                center: self.parent.center
+
+                            Image:
+                                source: 'atlas://textures/images/traco-atlas/workitems_line'
+                                center: self.parent.center
+
+                            Image:
+                                source: 'atlas://textures/images/traco-atlas/workitems_line'
+                                center: self.parent.center
+
+                            Image:
+                                source: 'atlas://textures/images/traco-atlas/workitems_line'
+                                center: self.parent.center
+                            ButtonLabel:
+                                text: '7'
+                            ButtonLabel:
+                                text: '8'
+                            ButtonLabel:
+                                text: '9'
+                            ButtonLabel:
+                                text: '10'
+                            ButtonLabel:
+                                text: '11'
+                            ButtonLabel:
+                                text: '12'
+                    BoxLayout:
+                        padding: '10dp'
+                        spacing: '10dp'
+                        #pos_hint: {'top':1}
+                        canvas:
+                            Color:
+                                rgb: (1, 1, 1)
+                            BorderImage:
+                                pos: self.pos
+                                size: self.size
+                                source: 'image/workitems.png'
+                        GridLayout:
+                            cols: 6
+                            rows: 3
+                            WorkitemCarouselDateLabel:
+                                text: '13'
+                            WorkitemCarouselDateLabel:
+                                text: '14'
+                            WorkitemCarouselDateLabel:
+                                text: '15'
+                            WorkitemCarouselDateLabel:
+                                text: '16'
+                            WorkitemCarouselDateLabel:
+                                text: '17'
+                            WorkitemCarouselDateLabel:
+                                text: '18'
+                            Image:
+                                source: 'atlas://textures/images/traco-atlas/workitems_line'
+                                center: self.parent.center
+
+                            Image:
+                                source: 'atlas://textures/images/traco-atlas/workitems_line'
+                                center: self.parent.center
+
+                            Image:
+                                source: 'atlas://textures/images/traco-atlas/workitems_line'
+                                center: self.parent.center
+
+                            Image:
+                                source: 'atlas://textures/images/traco-atlas/workitems_line'
+                                center: self.parent.center
+
+                            Image:
+                                source: 'atlas://textures/images/traco-atlas/workitems_line'
+                                center: self.parent.center
+
+                            Image:
+                                source: 'atlas://textures/images/traco-atlas/workitems_line'
+                                center: self.parent.center
+                            ButtonLabel:
+                                text: '13'
+                            ButtonLabel:
+                                text: '14'
+                            ButtonLabel:
+                                text: '15'
+                            ButtonLabel:
+                                text: '16'
+                            ButtonLabel:
+                                text: '17'
+                            ButtonLabel:
+                                text: '18'
+
+            BoxLayout:
+                orientation: "horizontal"
+                padding: '10dp'
+                spacing: '10dp'
+
+                GridLayout:
+                    rows:3
+
+                    padding: '10dp'
+                    spacing: '10dp'
+
+                    canvas:
+                        Color:
+                            rgb: (1, 1, 1)
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+
+                    GridLayout:
+                        cols:2
+                        Label:
+                            text:'[color=666666][b]Workitem Title [/b][/color]'
+                            markup:True
+                            font_size: '13sp'
+                            text_size: self.size
+                            valign: 'top'
+                            halign: 'left'
+
+                        Label:
+                            text:'[color=666666][b]Current Task [/b][/color]'
+                            markup:True
+                            font_size: '13sp'
+                            text_size: self.size
+                            valign: 'top'
+                            halign: 'right'
+
+                    GridLayout:
+                        rows:1
+                        #spacing: 10
+                        size_hint_y: None
+                        height: desc.texture_size[1]
+                        Label:
+                            id:desc
+                            text:'[color=cbcbcb] Ut justo risus, rutrum in ante non, luctus convallis lorem. Curabitur blandit faucibus purus, vel viverra elit tristique dapibus. Nulla molestie nibh at tellus ullamcorper pellentesque. [/color]'
+                            markup:True
+                            text_size: self.width, None
+                            size_hint: (1, None)
+                            size: self.parent.width, self.texture_size[1]
+                            #size_hint_y: None
+                            font_size: '13sp'
+                            #text_size: self.size
+                            valign: 'top'
+                            halign: 'left'
+                            #size: self.texture_size
+                    GridLayout:
+                        cols:3
+                        ros:2
+                        Label:
+                            text:'[color=cbcbcb][b]Due Date [/b][/color]'
+                            markup:True
+                            background_color: 0, 0, 0, 0
+                            size_hint_y: None
+                            #height: 15
+                            font_size: '12sp'
+                            text_size: self.size
+                            valign: 'top'
+                            halign: 'left'
+                            size: self.texture_size
+                        Label:
+                            text:'[color=cbcbcb][b]Est Time [/b][/color]'
+                            markup:True
+                            background_color: 0, 0, 0, 0
+                            size_hint_y: None
+                            #height: 15
+                            font_size: '13sp'
+                            text_size: self.size
+                            valign: 'top'
+                            halign: 'center'
+                            size: self.texture_size
+                        Label:
+                            text:'[color=cbcbcb][b]Worked Hours [/b][/color]'
+                            markup:True
+                            background_color: 0, 0, 0, 0
+                            size_hint_y: None
+                            #height: 15
+                            font_size: '13sp'
+                            text_size: self.size
+                            valign: 'top'
+                            halign: 'right'
+                            size: self.texture_size
+
+                        Label:
+                            text:'[color=cbcbcb]07/03/2018 [/color]'
+                            markup:True
+                            background_color: 0, 0, 0, 0
+                            size_hint_y: None
+                            #height: 15
+                            font_size: '13sp'
+                            text_size: self.size
+                            valign: 'top'
+                            halign: 'left'
+                            size: self.texture_size
+                        Label:
+                            text:'[color=cbcbcb]32:30:00 hrs [/color]'
+                            markup:True
+                            background_color: 0, 0, 0, 0
+                            size_hint_y: None
+                            #height: 15
+                            font_size: '13sp'
+                            text_size: self.size
+                            valign: 'top'
+                            halign: 'center'
+                            size: self.texture_size
+                        Label:
+                            text:'[color=cbcbcb]08:35:00 [/color]'
+                            markup:True
+                            background_color: 0, 0, 0, 0
+                            size_hint_y: None
+                            #height: 15
+                            font_size: '13sp'
+                            text_size: self.size
+                            valign: 'top'
+                            halign: 'right'
+                            size: self.texture_size
+
+            BoxLayout:
+                orientation:'vertical'
+                padding: '10dp'
+                spacing: '20dp'
+
+                BoxLayout:
+                    #orientation:'vertical'
+                    spacing:'20dp'
+
+                    Button:
+                        text: '[color=e9003a]OUT TO LUNCH [/color]'
+                        markup:True
+                        background_normal:'image/lunch.png'
+                        #background_down:'image/lunch.png'
+                        size_hint_y:1.8
+                        pos_hint: {'top':1}
+
+                    ToggleButton:
+                        id:btn_start_workitem
+                        size_hint_x:None
+                        size_hint_y:1.8
+                        #size_hint:None, 0.5
+                        width:75
+                        background_normal:'atlas://textures/images/traco-atlas/play_small'
+                        background_down:'atlas://textures/images/traco-atlas/play_small'
+                        border: 0,0,0,0
+                        pos_hint: {'top':1}
+                        on_press: MainScreen.start_timer()
+                        state:'normal'
+
+                BoxLayout:
+                    orientation:'vertical'
+
+                    ScaleLabel:
+                        size_hint_y: 0.2
+                        text:"[color=cbcbcb]Today's Hours [/color]"
+                        markup:True
+                        padding: dp(12), dp(12)
+                        font_size: self.height * 0.6
+                BoxLayout:
+                    orientation:'vertical'
+                    ScaleLabel:
+                        id:timer
+                        size_hint_y: 0.2
+                        text:'[color=e9003a]00 : 00 [/color]'
+                        markup:True
+                        padding: dp(12), dp(12)
+                        font_size: self.height * 2
+                        #font_name: "data/fonts/ColabThi.otf"
+
+            #Logged Hours
+
+            BoxLayout:
+                orientation: "vertical"
+                padding: '10dp'
+                spacing: '10dp'
+                pos_hint: {'top':1}
+                Label:
+                    size_hint_y: None
+                    height: '18dp'
+                    markup: True
+                    text: u'[size=15sp][color=666666]Logged Hours[/color][/size]'
+                    font_size: '12sp'
+                    text_size: self.size
+                    valign: 'top'
+                    halign: 'right'
+                    #size: self.texture_size
+                    #font_size: min(self.height, self.width) / 2.5
+
+                Carousel:
+                    id: carousel
+                    loop:True
+
+                    BoxLayout:
+                        padding: '10dp'
+                        spacing: '10dp'
+                        #pos_hint: {'top':1}
+                        canvas:
+                            Color:
+                                rgb: (1, 1, 1)
+                            BorderImage:
+                                pos: self.pos
+                                size: self.size
+                                source: 'image/logged_hours.png'
+
+                        GridLayout:
+                            cols: 6
+                            rows: 3
+
+                            WorkitemCarouselDateLabel:
+                                text: '1'
+                            WorkitemCarouselDateLabel:
+                                text: '2'
+                            WorkitemCarouselDateLabel:
+                                text: '3'
+                            WorkitemCarouselDateLabel:
+                                text: '4'
+                            WorkitemCarouselDateLabel:
+                                text: '5'
+                            WorkitemCarouselDateLabel:
+                                text: '6'
+
+                            Image:
+                                source: 'atlas://textures/images/traco-atlas/logger_hours_line'
+                                center: self.parent.center
+
+                            Image:
+                                source: 'atlas://textures/images/traco-atlas/logger_hours_line'
+                                center: self.parent.center
+
+                            Image:
+                                source: 'atlas://textures/images/traco-atlas/logger_hours_line'
+                                center: self.parent.center
+
+                            Image:
+                                source: 'atlas://textures/images/traco-atlas/logger_hours_line'
+                                center: self.parent.center
+
+                            Image:
+                                source: 'atlas://textures/images/traco-atlas/logger_hours_line'
+                                center: self.parent.center
+
+                            Image:
+                                source: 'atlas://textures/images/traco-atlas/logger_hours_line'
+                                center: self.parent.center
+
+                            ButtonLabel:
+                                text: '1'
+                            ButtonLabel:
+                                text: '2'
+                            ButtonLabel:
+                                text: '3'
+                            ButtonLabel:
+                                text: '4'
+                            ButtonLabel:
+                                text: '5'
+                            ButtonLabel:
+                                text: '6'
+                    BoxLayout:
+                        padding: '10dp'
+                        spacing: '10dp'
+                        #pos_hint: {'top':1}
+                        canvas:
+                            Color:
+                                rgb: (1, 1, 1)
+                            BorderImage:
+                                pos: self.pos
+                                size: self.size
+                                source: 'image/logged_hours.png'
+                        GridLayout:
+                            cols: 6
+                            rows: 3
+                            WorkitemCarouselDateLabel:
+                                text: '7'
+                            WorkitemCarouselDateLabel:
+                                text: '8'
+                            WorkitemCarouselDateLabel:
+                                text: '9'
+                            WorkitemCarouselDateLabel:
+                                text: '10'
+                            WorkitemCarouselDateLabel:
+                                text: '11'
+                            WorkitemCarouselDateLabel:
+                                text: '12'
+                            Image:
+                                source: 'atlas://textures/images/traco-atlas/logger_hours_line'
+                                center: self.parent.center
+
+                            Image:
+                                source: 'atlas://textures/images/traco-atlas/logger_hours_line'
+                                center: self.parent.center
+
+                            Image:
+                                source: 'atlas://textures/images/traco-atlas/logger_hours_line'
+                                center: self.parent.center
+
+                            Image:
+                                source: 'atlas://textures/images/traco-atlas/logger_hours_line'
+                                center: self.parent.center
+
+                            Image:
+                                source: 'atlas://textures/images/traco-atlas/logger_hours_line'
+                                center: self.parent.center
+
+                            Image:
+                                source: 'atlas://textures/images/traco-atlas/logger_hours_line'
+                                center: self.parent.center
+                            ButtonLabel:
+                                text: '7'
+                            ButtonLabel:
+                                text: '8'
+                            ButtonLabel:
+                                text: '9'
+                            ButtonLabel:
+                                text: '10'
+                            ButtonLabel:
+                                text: '11'
+                            ButtonLabel:
+                                text: '12'
+                    BoxLayout:
+                        padding: '10dp'
+                        spacing: '10dp'
+                        #pos_hint: {'top':1}
+                        canvas:
+                            Color:
+                                rgb: (1, 1, 1)
+                            BorderImage:
+                                pos: self.pos
+                                size: self.size
+                                source: 'image/logged_hours.png'
+                        GridLayout:
+                            cols: 6
+                            rows: 3
+                            WorkitemCarouselDateLabel:
+                                text: '13'
+                            WorkitemCarouselDateLabel:
+                                text: '14'
+                            WorkitemCarouselDateLabel:
+                                text: '15'
+                            WorkitemCarouselDateLabel:
+                                text: '16'
+                            WorkitemCarouselDateLabel:
+                                text: '17'
+                            WorkitemCarouselDateLabel:
+                                text: '18'
+                            Image:
+                                source: 'atlas://textures/images/traco-atlas/logger_hours_line'
+                                center: self.parent.center
+
+                            Image:
+                                source: 'atlas://textures/images/traco-atlas/logger_hours_line'
+                                center: self.parent.center
+
+                            Image:
+                                source: 'atlas://textures/images/traco-atlas/logger_hours_line'
+                                center: self.parent.center
+
+                            Image:
+                                source: 'atlas://textures/images/traco-atlas/logger_hours_line'
+                                center: self.parent.center
+
+                            Image:
+                                source: 'atlas://textures/images/traco-atlas/logger_hours_line'
+                                center: self.parent.center
+
+                            Image:
+                                source: 'atlas://textures/images/traco-atlas/logger_hours_line'
+                                center: self.parent.center
+                            ButtonLabel:
+                                text: '13'
+                            ButtonLabel:
+                                text: '14'
+                            ButtonLabel:
+                                text: '15'
+                            ButtonLabel:
+                                text: '16'
+                            ButtonLabel:
+                                text: '17'
+                            ButtonLabel:
+                                text: '18'

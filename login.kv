@@ -1,0 +1,192 @@
+#:include mainscreen.kv
+
+<TextButton@Button>:
+	color: 1, 1, 1, 1
+	background_color: (0.22745098, 0.521568627, 733333333, 1.0)
+	background_normal: 'atlas://textures/images/traco-atlas/round'
+	background_down: 'atlas://textures/images/traco-atlas/round'
+	size_hint_y: None
+	height: '48dp'
+	font_size: '20dp'
+	bold: True
+
+# still using 1.7.2 for android, and i want the title color
+# ModalView widget
+<-Popup>:
+    _container: container
+    canvas:
+        Color:
+            rgba: root.background_color[:3] + [root.background_color[-1] * self._anim_alpha]
+        Rectangle:
+            size: self._window.size if self._window else (0, 0)
+
+        Color:
+            rgb: 1, 1, 1
+        BorderImage:
+            source: root.background
+            border: root.border
+            pos: self.pos
+            size: self.size
+    GridLayout:
+        padding: 12
+        cols: 1
+        size_hint: None, None
+        pos: root.pos
+        size: root.size
+
+        Label:
+            text: root.title
+			color: 0x77 / 255., 0x6e / 255., 0x65 / 255., 1.
+            size_hint_y: None
+            height: self.texture_size[1] + 16
+            text_size: self.width - 16, None
+            font_size: root.title_size
+
+        Widget:
+            size_hint_y: None
+            height: 4
+            canvas:
+                Color:
+                    rgba: root.separator_color
+                Rectangle:
+                    pos: self.x, self.y + root.separator_height / 2.
+                    size: self.width, root.separator_height
+
+        BoxLayout:
+            id: container
+
+<TracoPopup>:
+	size_hint: None, None
+	title: 'Warning!'
+	size: '240dp', '200dp'
+	background: 'atlas://textures/images/traco-atlas/round'
+	separator_color: 0x77 / 255., 0x6e / 255., 0x65 / 255., 1.
+	title_size: '20sp'
+
+	BoxLayout:
+
+		orientation: 'vertical'
+		spacing: '10dp'
+		padding: '10dp'
+
+		Label:
+			font_size: '20sp'
+			color: 0x77 / 255., 0x6e / 255., 0x65 / 255., 1.
+			bold: True
+			text: 'Invalid Login'
+			text_size: self.width - dp(20), None
+			halign: 'center'
+
+		BoxLayout:
+			size_hint_y: None
+			height: '68dp'
+			spacing: '10dp'
+			TextButton:
+				text: 'Close'
+				on_press: root.dismiss()
+
+<Login>:
+    AnchorLayout:
+        pos: root.pos
+        size: root.size
+
+        canvas:
+            Color:
+                rgba: 0xfa / 255., 0xf8 / 255., 0xef / 255.
+            BorderImage:
+                pos: self.pos
+                size: self.size
+                source: 'atlas://textures/images/traco-atlas/round'
+
+        BoxLayout:
+            orientation: "vertical"
+            padding: '10dp'
+            spacing: '20dp'
+
+            canvas:
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            BoxLayout:
+                orientation: "vertical"
+                Image:
+                    canvas:
+                        Color:
+                            rgb: (1, 1, 1)
+                        Rectangle:
+                            texture: self.texture
+                            size: 0, self.height + 20
+                            pos: self.x - 5, self.y - 5
+                    source: 'atlas://textures/images/traco-atlas/logo'
+                    allow_stretch: True
+                    keep_ratio: True
+
+            BoxLayout:
+                orientation: "vertical"
+                padding: '10dp'
+                spacing: '20dp'
+
+                TextInput:
+                    id:username
+                    multiline: False
+                    hint_text: 'User Name'
+                    #focus:True
+                    font_size:'20sp'
+                    pos_hint:{'center_x':0.5, 'center_y': 0.5}
+                    #size_hint:(0.45, 0.2)
+                    size_hint_y:0.2
+                    #padding:[60,15,0,0]
+                    padding:[20,20,0,0]
+                    #background_normal: 'image/username.png'
+                    #background_down: 'image/username.png'
+                    background_color: 1 / 255., 1 / 255., 1 / 255., 0.1
+                    background_normal: 'image/round.png'
+                    background_down: 'image/round.png'
+
+                TextInput:
+                    id:password
+                    multiline: False
+                    hint_text: 'Password'
+                    password: True
+                    font_size:'20sp'
+                    pos_hint:{'center_x':0.5, 'center_y': 0.5}
+                    #size_hint:(0.45, 0.2)
+                    size_hint_y:0.2
+                    #padding:[60,15,0,0]
+                    padding:[20,20,0,0]
+                    #background_normal: 'image/password.png'
+                    #background_down: 'image/password.png'
+                    background_color: 1 / 255., 1 / 255., 1 / 255., 0.1
+                    background_normal: 'image/round.png'
+                    background_down: 'image/round.png'
+
+            BoxLayout:
+                orientation: "vertical"
+                Button:
+                    color: 1, 1, 1, 1
+                    background_color: (0.22745098, 0.521568627, 733333333, 1.0)
+                    background_normal: 'atlas://textures/images/traco-atlas/round'
+                    background_down: 'atlas://textures/images/traco-atlas/round'
+                    pos_hint:{'center_x':0.5, 'center_y': 0.5}
+                    size_hint:(0.98, 0.2)
+                    #size_hint_y:0.2
+                    font_size: '20dp'
+                    bold: True
+                    text:'Login'
+                    on_press: root.do_login(username.text, password.text)
+
+
+                Button:
+                    color: 155 / 255., 142 / 255., 135 / 255.,  0.97
+                    background_color: 0xbb / 255., 0xad / 255., 0xa0 / 255.
+                    background_normal: 'atlas://textures/images/traco-atlas/round'
+                    background_down: 'atlas://textures/images/traco-atlas/round'
+                    pos_hint:{'center_x':0.5, 'center_y': 0.5}
+                    size_hint_y:0.4
+                    size_hint_x:0.8
+
+                    Image:
+                        source: 'image/lost_password_button.jpg'
+                        center: self.parent.center
+                        allow_stretch: True
+                        keep_ratio: True

@@ -1,0 +1,596 @@
+
+<ScaleWorkItemsLabel@Label>:
+	_scale: 1. if self.texture_size[0] < self.width else float(self.width) / self.texture_size[0]
+	canvas.before:
+		PushMatrix
+		Scale:
+			origin: self.center
+			x: self._scale or 1.
+			y: self._scale or 1.
+	canvas.after:
+		PopMatrix
+
+
+<BoxButton@ButtonBehavior+BoxLayout>:
+	orientation: 'vertical'
+	padding: '8dp'
+	canvas.before:
+		Color:
+			rgb: (1, 1, 1,)
+		BorderImage:
+			pos: self.pos
+			size: self.size
+			source: 'data/round.png'
+
+
+
+
+<WorkItems>:
+    id:WorkItems
+    FloatLayout:
+
+        canvas:
+            Color:
+                rgba: 232 / 255., 232 / 255., 232 / 255., 1
+            BorderImage:
+                pos: self.pos
+                size: self.size
+                source: 'atlas://textures/images/traco-atlas/round'
+
+        BoxLayout:
+            orientation: "vertical"
+
+            ActionBar:
+                pos_hint: {'top':1}
+                canvas:
+                    Color:
+                        rgba: (45 / 255., 117 / 255., 180 / 255., 1.0)
+                    BorderImage:
+                        pos: self.pos
+                        size: self.size
+                        source: 'atlas://textures/images/traco-atlas/round'
+                ActionView:
+                    use_separator: True
+                    ActionPrevious:
+                        title:('User Name')
+                        with_previous: False
+                        app_icon:'atlas://textures/images/traco-atlas/round'
+
+                    ActionOverflow:
+                    ActionButton:
+                        text:
+                            ('@ Office Since \n'
+                            '      [color=cbcbcb]10 : 23[/color]')
+                        markup: True
+
+                    ActionButton:
+                        Image:
+                            source: 'atlas://textures/images/traco-atlas/log_out'
+                            center: self.parent.center
+
+            StackLayout:
+                orientation: 'rl-tb'
+
+                ScaleLabel:
+                    size_hint_y: 0.05
+                    text:u"[size=15sp][color=666666]Workitems of 7 match [/color][/size]"
+                    markup:True
+                    padding: dp(12), dp(12)
+                    font_size: self.height * 0.6
+
+                ScrollView:
+                    #size_hint:(None, None)
+                    #size:root.width, root.height - 80
+                    do_scroll_x:False
+
+                    GridLayout:
+                        cols:1
+                        size_hint:(None, None)
+                        width:root.width
+                        height:root.height + 10
+
+                        BoxLayout:
+                            orientation: "vertical"
+                            padding: '10dp'
+                            spacing: '10dp'
+                            size_hint_y: .30
+
+                            BoxLayout:
+                                orientation: 'vertical'
+                                padding: '8dp'
+                                canvas.before:
+                                    Color:
+                                        rgb: (1, 1, 1,)
+                                    BorderImage:
+                                        pos: self.pos
+                                        size: self.size
+                                        source: 'data/round.png'
+
+                                GridLayout:
+                                    rows:3
+
+                                    GridLayout:
+                                        cols:2
+                                        Label:
+                                            text:'[color=666666][b]Workitem Title [/b][/color]'
+                                            markup:True
+                                            font_size: '13sp'
+                                            text_size: self.size
+                                            valign: 'top'
+                                            halign: 'left'
+
+                                        Label:
+                                            text:'[color=666666][b]Current Task [/b][/color]'
+                                            markup:True
+                                            font_size: '13sp'
+                                            text_size: self.size
+                                            valign: 'top'
+                                            halign: 'right'
+
+                                    GridLayout:
+                                        rows:1
+                                        spacing: 10
+                                        size_hint_y: None
+                                        height: desc.texture_size[1]
+                                        Label:
+                                            id:desc
+                                            text:'[color=cbcbcb] Ut justo risus, rutrum in ante non, luctus convallis lorem. Curabitur blandit faucibus purus, vel viverra elit tristique dapibus. Nulla molestie nibh at tellus ullamcorper pellentesque. [/color]'
+                                            markup:True
+                                            text_size: self.width, None
+                                            size_hint: (1, None)
+                                            size: self.parent.width, self.texture_size[1]
+
+
+                                            #size_hint_y: None
+                                            font_size: '13sp'
+                                            #text_size: self.size
+                                            valign: 'top'
+                                            halign: 'left'
+                                            #size: self.texture_size
+                                    GridLayout:
+                                        cols:3
+                                        GridLayout:
+                                            rows:2
+                                            Label:
+                                                text:'[color=cbcbcb][b]Due Date [/b][/color]'
+                                                markup:True
+                                                background_color: 0, 0, 0, 0
+                                                size_hint_y: None
+                                                #height: 15
+                                                font_size: '12sp'
+                                                text_size: self.size
+                                                valign: 'top'
+                                                halign: 'left'
+                                                size: self.texture_size
+                                            Label:
+                                                text:'[color=cbcbcb]07/03/2018 [/color]'
+                                                markup:True
+                                                background_color: 0, 0, 0, 0
+                                                size_hint_y: None
+                                                #height: 15
+                                                font_size: '13sp'
+                                                text_size: self.size
+                                                valign: 'top'
+                                                halign: 'left'
+                                                size: self.texture_size
+
+
+                                        GridLayout:
+                                            rows:2
+                                            Label:
+                                                text:'[color=cbcbcb][b]Est Time [/b][/color]'
+                                                markup:True
+                                                background_color: 0, 0, 0, 0
+                                                size_hint_y: None
+                                                #height: 15
+                                                font_size: '13sp'
+                                                text_size: self.size
+                                                valign: 'top'
+                                                halign: 'center'
+                                                size: self.texture_size
+
+                                            Label:
+                                                text:'[color=cbcbcb]32:30:00 hrs [/color]'
+                                                markup:True
+                                                background_color: 0, 0, 0, 0
+                                                size_hint_y: None
+                                                #height: 15
+                                                font_size: '13sp'
+                                                text_size: self.size
+                                                valign: 'top'
+                                                halign: 'center'
+                                                size: self.texture_size
+                                        StackLayout:
+                                            orientation: 'rl-tb'
+
+                                            ToggleButton:
+                                                id:btn_start_workitem
+                                                size_hint_x:None
+                                                size_hint_y:1
+                                                #size_hint:None, 0.5
+                                                width:50
+                                                background_normal:'atlas://textures/images/traco-atlas/play_small'
+                                                background_down:'atlas://textures/images/traco-atlas/play_small'
+                                                border: 0,0,0,0
+                                                #pos_hint: {'top':1}
+                                                #on_press: MainScreen.start_timer()
+
+
+                        BoxLayout:
+                            orientation: "vertical"
+                            padding: '10dp'
+                            spacing: '10dp'
+                            size_hint_y: .30
+
+                            BoxLayout:
+                                orientation: 'vertical'
+                                padding: '8dp'
+                                canvas.before:
+                                    Color:
+                                        rgb: (1, 1, 1,)
+                                    BorderImage:
+                                        pos: self.pos
+                                        size: self.size
+                                        source: 'data/round.png'
+
+                                GridLayout:
+                                    rows:3
+
+                                    GridLayout:
+                                        cols:2
+                                        Label:
+                                            text:'[color=666666][b]Workitem Title [/b][/color]'
+                                            markup:True
+                                            font_size: '13sp'
+                                            text_size: self.size
+                                            valign: 'top'
+                                            halign: 'left'
+
+                                        Label:
+                                            text:'[color=666666][b]Current Task [/b][/color]'
+                                            markup:True
+                                            font_size: '13sp'
+                                            text_size: self.size
+                                            valign: 'top'
+                                            halign: 'right'
+
+                                    GridLayout:
+                                        rows:1
+                                        spacing: 10
+                                        size_hint_y: None
+                                        height: desc.texture_size[1]
+                                        Label:
+                                            id:desc
+                                            text:'[color=cbcbcb] Ut justo risus, rutrum in ante non, luctus convallis lorem. Curabitur blandit faucibus purus, vel viverra elit tristique dapibus. Nulla molestie nibh at tellus ullamcorper pellentesque. [/color]'
+                                            markup:True
+                                            text_size: self.width, None
+                                            size_hint: (1, None)
+                                            size: self.parent.width, self.texture_size[1]
+
+
+                                            #size_hint_y: None
+                                            font_size: '13sp'
+                                            #text_size: self.size
+                                            valign: 'top'
+                                            halign: 'left'
+                                            #size: self.texture_size
+                                    GridLayout:
+                                        cols:3
+                                        GridLayout:
+                                            rows:2
+                                            Label:
+                                                text:'[color=cbcbcb][b]Due Date [/b][/color]'
+                                                markup:True
+                                                background_color: 0, 0, 0, 0
+                                                size_hint_y: None
+                                                #height: 15
+                                                font_size: '12sp'
+                                                text_size: self.size
+                                                valign: 'top'
+                                                halign: 'left'
+                                                size: self.texture_size
+                                            Label:
+                                                text:'[color=cbcbcb]07/03/2018 [/color]'
+                                                markup:True
+                                                background_color: 0, 0, 0, 0
+                                                size_hint_y: None
+                                                #height: 15
+                                                font_size: '13sp'
+                                                text_size: self.size
+                                                valign: 'top'
+                                                halign: 'left'
+                                                size: self.texture_size
+
+
+                                        GridLayout:
+                                            rows:2
+                                            Label:
+                                                text:'[color=cbcbcb][b]Est Time [/b][/color]'
+                                                markup:True
+                                                background_color: 0, 0, 0, 0
+                                                size_hint_y: None
+                                                #height: 15
+                                                font_size: '13sp'
+                                                text_size: self.size
+                                                valign: 'top'
+                                                halign: 'center'
+                                                size: self.texture_size
+
+                                            Label:
+                                                text:'[color=cbcbcb]32:30:00 hrs [/color]'
+                                                markup:True
+                                                background_color: 0, 0, 0, 0
+                                                size_hint_y: None
+                                                #height: 15
+                                                font_size: '13sp'
+                                                text_size: self.size
+                                                valign: 'top'
+                                                halign: 'center'
+                                                size: self.texture_size
+                                        StackLayout:
+                                            orientation: 'rl-tb'
+
+                                            ToggleButton:
+                                                id:btn_start_workitem
+                                                size_hint_x:None
+                                                size_hint_y:1
+                                                #size_hint:None, 0.5
+                                                width:50
+                                                background_normal:'atlas://textures/images/traco-atlas/play_small'
+                                                background_down:'atlas://textures/images/traco-atlas/play_small'
+                                                border: 0,0,0,0
+                                                #pos_hint: {'top':1}
+                                                #on_press: MainScreen.start_timer()
+
+                        BoxLayout:
+                            orientation: "vertical"
+                            padding: '10dp'
+                            spacing: '10dp'
+                            size_hint_y: .30
+
+                            BoxLayout:
+                                orientation: 'vertical'
+                                padding: '8dp'
+                                canvas.before:
+                                    Color:
+                                        rgb: (1, 1, 1,)
+                                    BorderImage:
+                                        pos: self.pos
+                                        size: self.size
+                                        source: 'data/round.png'
+
+                                GridLayout:
+                                    rows:3
+
+                                    GridLayout:
+                                        cols:2
+                                        Label:
+                                            text:'[color=666666][b]Workitem Title [/b][/color]'
+                                            markup:True
+                                            font_size: '13sp'
+                                            text_size: self.size
+                                            valign: 'top'
+                                            halign: 'left'
+
+                                        Label:
+                                            text:'[color=666666][b]Current Task [/b][/color]'
+                                            markup:True
+                                            font_size: '13sp'
+                                            text_size: self.size
+                                            valign: 'top'
+                                            halign: 'right'
+
+                                    GridLayout:
+                                        rows:1
+                                        spacing: 10
+                                        size_hint_y: None
+                                        height: desc.texture_size[1]
+                                        Label:
+                                            id:desc
+                                            text:'[color=cbcbcb] Ut justo risus, rutrum in ante non, luctus convallis lorem. Curabitur blandit faucibus purus, vel viverra elit tristique dapibus. Nulla molestie nibh at tellus ullamcorper pellentesque. [/color]'
+                                            markup:True
+                                            text_size: self.width, None
+                                            size_hint: (1, None)
+                                            size: self.parent.width, self.texture_size[1]
+
+
+                                            #size_hint_y: None
+                                            font_size: '13sp'
+                                            #text_size: self.size
+                                            valign: 'top'
+                                            halign: 'left'
+                                            #size: self.texture_size
+                                    GridLayout:
+                                        cols:3
+                                        GridLayout:
+                                            rows:2
+                                            Label:
+                                                text:'[color=cbcbcb][b]Due Date [/b][/color]'
+                                                markup:True
+                                                background_color: 0, 0, 0, 0
+                                                size_hint_y: None
+                                                #height: 15
+                                                font_size: '12sp'
+                                                text_size: self.size
+                                                valign: 'top'
+                                                halign: 'left'
+                                                size: self.texture_size
+                                            Label:
+                                                text:'[color=cbcbcb]07/03/2018 [/color]'
+                                                markup:True
+                                                background_color: 0, 0, 0, 0
+                                                size_hint_y: None
+                                                #height: 15
+                                                font_size: '13sp'
+                                                text_size: self.size
+                                                valign: 'top'
+                                                halign: 'left'
+                                                size: self.texture_size
+
+
+                                        GridLayout:
+                                            rows:2
+                                            Label:
+                                                text:'[color=cbcbcb][b]Est Time [/b][/color]'
+                                                markup:True
+                                                background_color: 0, 0, 0, 0
+                                                size_hint_y: None
+                                                #height: 15
+                                                font_size: '13sp'
+                                                text_size: self.size
+                                                valign: 'top'
+                                                halign: 'center'
+                                                size: self.texture_size
+
+                                            Label:
+                                                text:'[color=cbcbcb]32:30:00 hrs [/color]'
+                                                markup:True
+                                                background_color: 0, 0, 0, 0
+                                                size_hint_y: None
+                                                #height: 15
+                                                font_size: '13sp'
+                                                text_size: self.size
+                                                valign: 'top'
+                                                halign: 'center'
+                                                size: self.texture_size
+                                        StackLayout:
+                                            orientation: 'rl-tb'
+
+                                            ToggleButton:
+                                                id:btn_start_workitem
+                                                size_hint_x:None
+                                                size_hint_y:1
+                                                #size_hint:None, 0.5
+                                                width:50
+                                                background_normal:'atlas://textures/images/traco-atlas/play_small'
+                                                background_down:'atlas://textures/images/traco-atlas/play_small'
+                                                border: 0,0,0,0
+                                                #pos_hint: {'top':1}
+                                                #on_press: MainScreen.start_timer()
+
+                        BoxLayout:
+                            orientation: "vertical"
+                            padding: '10dp'
+                            spacing: '10dp'
+                            size_hint_y: .30
+
+                            BoxLayout:
+                                orientation: 'vertical'
+                                padding: '8dp'
+                                canvas.before:
+                                    Color:
+                                        rgb: (1, 1, 1,)
+                                    BorderImage:
+                                        pos: self.pos
+                                        size: self.size
+                                        source: 'data/round.png'
+
+                                GridLayout:
+                                    rows:3
+
+                                    GridLayout:
+                                        cols:2
+                                        Label:
+                                            text:'[color=666666][b]Workitem Title [/b][/color]'
+                                            markup:True
+                                            font_size: '13sp'
+                                            text_size: self.size
+                                            valign: 'top'
+                                            halign: 'left'
+
+                                        Label:
+                                            text:'[color=666666][b]Current Task [/b][/color]'
+                                            markup:True
+                                            font_size: '13sp'
+                                            text_size: self.size
+                                            valign: 'top'
+                                            halign: 'right'
+
+                                    GridLayout:
+                                        rows:1
+                                        spacing: 10
+                                        size_hint_y: None
+                                        height: desc.texture_size[1]
+                                        Label:
+                                            id:desc
+                                            text:'[color=cbcbcb] Ut justo risus, rutrum in ante non, luctus convallis lorem. Curabitur blandit faucibus purus, vel viverra elit tristique dapibus. Nulla molestie nibh at tellus ullamcorper pellentesque. [/color]'
+                                            markup:True
+                                            text_size: self.width, None
+                                            size_hint: (1, None)
+                                            size: self.parent.width, self.texture_size[1]
+
+
+                                            #size_hint_y: None
+                                            font_size: '13sp'
+                                            #text_size: self.size
+                                            valign: 'top'
+                                            halign: 'left'
+                                            #size: self.texture_size
+                                    GridLayout:
+                                        cols:3
+                                        GridLayout:
+                                            rows:2
+                                            Label:
+                                                text:'[color=cbcbcb][b]Due Date [/b][/color]'
+                                                markup:True
+                                                background_color: 0, 0, 0, 0
+                                                size_hint_y: None
+                                                #height: 15
+                                                font_size: '12sp'
+                                                text_size: self.size
+                                                valign: 'top'
+                                                halign: 'left'
+                                                size: self.texture_size
+                                            Label:
+                                                text:'[color=cbcbcb]07/03/2018 [/color]'
+                                                markup:True
+                                                background_color: 0, 0, 0, 0
+                                                size_hint_y: None
+                                                #height: 15
+                                                font_size: '13sp'
+                                                text_size: self.size
+                                                valign: 'top'
+                                                halign: 'left'
+                                                size: self.texture_size
+
+
+                                        GridLayout:
+                                            rows:2
+                                            Label:
+                                                text:'[color=cbcbcb][b]Est Time [/b][/color]'
+                                                markup:True
+                                                background_color: 0, 0, 0, 0
+                                                size_hint_y: None
+                                                #height: 15
+                                                font_size: '13sp'
+                                                text_size: self.size
+                                                valign: 'top'
+                                                halign: 'center'
+                                                size: self.texture_size
+
+                                            Label:
+                                                text:'[color=cbcbcb]32:30:00 hrs [/color]'
+                                                markup:True
+                                                background_color: 0, 0, 0, 0
+                                                size_hint_y: None
+                                                #height: 15
+                                                font_size: '13sp'
+                                                text_size: self.size
+                                                valign: 'top'
+                                                halign: 'center'
+                                                size: self.texture_size
+                                        StackLayout:
+                                            orientation: 'rl-tb'
+
+                                            ToggleButton:
+                                                id:btn_start_workitem
+                                                size_hint_x:None
+                                                size_hint_y:1
+                                                #size_hint:None, 0.5
+                                                width:50
+                                                background_normal:'atlas://textures/images/traco-atlas/play_small'
+                                                background_down:'atlas://textures/images/traco-atlas/play_small'
+                                                border: 0,0,0,0
+                                                #pos_hint: {'top':1}
+                                                #on_press: MainScreen.start_timer()
+
